@@ -1,18 +1,29 @@
-// workout
+# Art Workshop Registration System
 
-4. Art Workshop Registration System
-Project: Users register for workshops hosted by artists.
-Schemas:
-● User: name, email, role: ['attendee', 'artist']
-● Workshop: title, date, artistId, attendeeIds (array of User refs)
-Endpoints:
-● POST /register: Create user.
-● POST /workshops: Create a workshop.
-● POST /workshops/:id/register: Add attendee to workshop
+## Project:
+Users register for workshops hosted by artists.
 
+## Schemas:
+- **User**: 
+  - `name`: String, required
+  - `email`: String, required, unique
+  - `role`: ['attendee', 'artist'], required
+- **Workshop**: 
+  - `title`: String, required
+  - `date`: Date, required
+  - `artistId`: ObjectId (ref: 'User'), required
+  - `attendeeIds`: Array of User references (attendees)
 
-//code solution
+## Endpoints:
+- **POST /register**: Create a user.
+- **POST /workshops**: Create a workshop.
+- **POST /workshops/:id/register**: Add an attendee to a workshop.
 
+---
+
+## Code Solution:
+
+```javascript
 import express from 'express';
 import mongoose from 'mongoose';
 
@@ -101,27 +112,46 @@ const startServer = async () => {
 };
 
 startServer();
+```
 
+---
 
-//workout
+# Mentor Matching Platform
 
+## Project:
 
-Mentor Matching Platform
-Project: Connect students with industry mentors.
-Schemas:
-● User: name, email, role: ['student', 'mentor']
-● Mentorship: topic, date, mentorId, studentId
-Endpoints:
-● POST /register: Add a user.
-● POST /mentorships: Schedule session.
-Validation:
-● Role must be correct.
-● Ensure both users exist.
-● Limit to 1 mentorship per student per topic per week
+Connect students with industry mentors.
 
-// code solution
+## Schemas:
 
+* **User**:
 
+  * `name`: String, required
+  * `email`: String, required, unique
+  * `role`: \['student', 'mentor'], required
+* **Mentorship**:
+
+  * `topic`: String, required
+  * `date`: Date, required
+  * `mentorId`: ObjectId (ref: 'User'), required
+  * `studentId`: ObjectId (ref: 'User'), required
+
+## Endpoints:
+
+* **POST /register**: Add a user.
+* **POST /mentorships**: Schedule a session.
+
+## Validation:
+
+* Role must be correct.
+* Ensure both users exist.
+* Limit to 1 mentorship per student per topic per week.
+
+---
+
+## Code Solution:
+
+```javascript
 const workshopSchema = new Schema({
   title: { type: String, required: true },
   date: { type: Date, required: true },
@@ -129,7 +159,6 @@ const workshopSchema = new Schema({
   attendeeIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   topic: { type: String, required: true },  // Added the topic field
 });
-
 
 app.post('/workshops/:id/register', async (req, res) => {
   const workshopId = req.params.id;
@@ -185,3 +214,5 @@ app.post('/workshops/:id/register', async (req, res) => {
     return res.status(500).json({ message: 'Server error' });
   }
 });
+```
+
