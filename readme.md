@@ -216,3 +216,67 @@ app.post('/workshops/:id/register', async (req, res) => {
 });
 ```
 
+//SQL
+
+
+---
+
+**1. You want to add a new product to the catalog. Which SQL command should you use?**
+✅ **B. INSERT**
+**Explanation:** The `INSERT` command is used to add new records (like a new product) into a table.
+
+---
+
+**2. You need to list all users who have registered. What SQL command will you use?**
+✅ **B. SELECT**
+**Explanation:** The `SELECT` statement is used to query data from a table, in this case, to list all registered users.
+
+---
+
+**3. A customer updates the quantity of an order. Which command will help you?**
+✅ **A. UPDATE Orders SET quantity = 2 WHERE id = 1;**
+**Explanation:** The `UPDATE` command modifies existing data in a table. Here, it updates the quantity for a specific order.
+
+---
+
+**4. You want to permanently remove a product that's discontinued. Which SQL command do you use?**
+✅ **C. DELETE FROM Products WHERE id=5;**
+**Explanation:** The `DELETE` command removes specific rows (like a discontinued product) from a table.
+
+---
+
+**5. You want to allow a manager to update product stock levels. Which SQL command is related to permissions?**
+✅ **A. GRANT**
+**Explanation:** The `GRANT` command is used to give users specific privileges, like the ability to update a table.
+
+---
+
+**6. To add a new column 'discount' to Products, you would use:**
+✅ **A. ALTER TABLE Products ADD discount INT;**
+**Explanation:** The `ALTER TABLE` command with `ADD` adds a new column to an existing table.
+
+---
+
+**7. You accidentally updated wrong prices. Which command can help undo changes?**
+✅ **B. ROLLBACK**
+**Explanation:** The `ROLLBACK` command undoes changes made in the current transaction before a `COMMIT`.
+
+---
+
+**8. After successfully adding a bulk list of products, which command saves the changes?**
+✅ **A. COMMIT**
+**Explanation:** The `COMMIT` command saves all changes made during the transaction to the database.
+
+---
+
+**9. You realize you need a new table for product reviews. Which command creates it?**
+✅ **B. CREATE**
+**Explanation:** The `CREATE` command is used to create new database objects such as tables.
+
+---
+
+**10. Which SQL command changes the structure of an existing table without removing data?**
+✅ **B. ALTER**
+**Explanation:** The `ALTER` command modifies the structure of a table (e.g., add/remove columns) without affecting the data.
+
+---
