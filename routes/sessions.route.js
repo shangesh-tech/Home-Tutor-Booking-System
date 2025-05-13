@@ -70,3 +70,117 @@ Router.post("/", async (req, res) => {
 });
 
 module.exports = Router;
+
+
+
+// Register Route
+Router.post("/register", async (req, res) => {
+  try {
+    const { username, email, role } = req.body;
+
+    // Validate input
+    if (!username || !email) {
+      return res
+        .status(400)
+        .json({ message: "Please provide username and email..." });
+    }
+
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(400)
+        .json({ message: "User with this email already exists" });
+    }
+
+    // Create new user
+    const newUser = await User.create({
+      username,
+      email,
+      role: role || "student",
+    });
+
+    res.status(201).json({
+      message: "User registered successfully",
+      user: {
+        id: newUser._id,
+        username: newUser.username,
+        email: newUser.email,
+        role: newUser.role,
+      },
+    });
+  } catch (error) {
+    console.error("Registration error:", error);
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+});
+
+// Update Student Route
+Router.put("/update/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { username, email, role } = req.body;
+
+    // Validate input
+    if (!username && !email && !role) {
+      return res
+        .status(400)
+        .json({ message: "No fields provided for update" });
+    }
+
+    // Update student details
+    const updatedUser = await User.findByIdAndUpdate(
+      id,
+      { username, email, role },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "User updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Update error:", error);
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+});
+
+// Delete Student Route
+Router.delete("/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Delete student
+    const deletedUser = await User.findByIdAndDelete(id);
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      message: "User deleted successfully",
+      user: deletedUser,
+    });
+  } catch (error) {
+    console.error("Delete error:", error);
+
+    res.status(500).json({
+      message: "Server error",
+      error: error.message,
+    });
+  }
+});
+
+module.exports = Router;
